@@ -2,19 +2,21 @@ import sys
 import random
 from enum import Enum
 
-class RPS(Enum):
-    ROCK = 1
-    PAPER = 2
-    SCISSORS = 3
 
-play_again = True
-while play_again:
+def play_rps():
+    class RPS(Enum):
+        ROCK = 1
+        PAPER = 2
+        SCISSORS = 3
+
+    
     player_choice = input("\nEnter...\n1 for Rock,\n2 for paper, or \n3 for Scissors:\n\n")
 
+    if player_choice not in ["1", "2", "3"]:
+        print("You must enter 1, 2, or 3.")
+        return play_rps()
+    
     player = int(player_choice)
-
-    if player < 1 or player > 3:
-        sys.exit("You must enter 1, 2, or 3.")
 
     computer_choice = random.choice("123")
 
@@ -33,13 +35,21 @@ while play_again:
         print("🤝 Tie game!")
     else:
         print("🐍 Python wins!")
-    play_again = input("\nPlay again?\n Y for Yes or \nQ to quit\n\n")
 
-    if play_again.lower() == "Y":
-        continue
+    print("\nPlay again?")
+
+    while True:
+        play_again = input("\nPlay again?\n Y for Yes or \nQ to quit\n")
+        if play_again.lower()not in ["y", "q"]:
+            continue
+        else:
+            break
+
+    if play_again.lower() == "y":
+        return play_rps()
     else: 
         print("\n🍾🍾🍾")
         print("Thank you for playing!\n")
-        break
+        sys.exit("Bye!🙋‍♂️")
 
-sys.exit("Bye!🙋‍♂️")
+play_rps()
